@@ -18,16 +18,28 @@ A small in-memory banking domain written in Python. The project is an object-ori
 ## Project Structure
 
 ```text
-banking-system/
+banking-system-portfolio/
+├── .github/
+│   └── workflows/
+│       └── tests.yml
+├── .gitignore
 ├── README.md
+├── pyproject.toml
 ├── src/
-│   ├── main.py
-│   └── models/
-│       ├── bank.py
-│       ├── bank_account.py
-│       ├── customer.py
-│       ├── transaction.py
-│       └── transaction_history.py
+│   ├── __init__.py
+│   ├── exceptions/
+│   │   ├── __init__.py
+│   │   ├── account.py
+│   │   ├── bank.py
+│   │   └── customer.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── bank.py
+│   │   ├── bank_account.py
+│   │   ├── customer.py
+│   │   ├── transaction.py
+│   │   └── transaction_history.py
+│   └── main.py
 └── tests/
     ├── test_bank.py
     ├── test_bank_account.py
