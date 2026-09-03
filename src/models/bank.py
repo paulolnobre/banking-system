@@ -32,12 +32,18 @@ class Bank:
         return account
 
     def get_account(self, account_number):
+        if isinstance(account_number, bool) or not isinstance(account_number, int):
+            raise TypeError("Account number must be an integer.")
+
+        if account_number <= 0:
+            raise ValueError("Account number must be a positive integer.")
+        
         if account_number not in self._accounts:
             raise AccountNotFoundError("This account does not exist.")
 
         return self._accounts[account_number]
 
-    def get_account_by_owner(self, owner):
+    def get_account_by_owner(self, owner):  
         accounts_by_owner = []
 
         for account in self._accounts.values():

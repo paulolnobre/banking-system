@@ -42,8 +42,6 @@ def test_remove_account_with_zero_balance(bank_with_customer):
         (0, 500, 100),
     ],
 )
-
-
 def test_remove_account_with_nonzero_balance(
     bank_with_customer,
     initial_balance,
@@ -69,18 +67,13 @@ def test_remove_account_with_nonzero_balance(
 
     assert stored_account is account
 
-def test_get_nonexistent_account_raises_account_not_found_error():
-    bank = Bank()
-
-    with pytest.raises(AccountNotFoundError):
-        bank.get_account("nonexistent_account_number")
-
 def test_get_nonexistent_customer_raises_customer_not_found_error():
 
     bank = Bank()
 
     with pytest.raises(CustomerNotFoundError):
         bank.get_customer(9999)
+
 
 @pytest.mark.parametrize(
     "invalid_customer_id",
@@ -111,3 +104,39 @@ def test_non_positive_customer_id_raises_value_error(invalid_customer_id):
 
     with pytest.raises(ValueError):
         bank.get_customer(invalid_customer_id)
+
+def test_nonexistent_account_number_raises_account_not_found_error():
+    bank = Bank()
+
+    with pytest.raises(AccountNotFoundError):
+        bank.get_account(9999)
+
+@pytest.mark.parametrize(
+    "invalid_account_number",
+    [
+        "invalid_account_number",
+        True,
+        None,
+        False,
+        1.5,
+    ],
+)
+def test_invalid_account_number_type_raises_type_error(invalid_account_number):
+    bank = Bank()
+
+    with pytest.raises(TypeError):
+        bank.get_account(invalid_account_number)
+
+@pytest.mark.parametrize(
+    "non_positive_account_number",
+    [
+        0,
+        -1,
+        -999,
+    ],
+)
+def test_non_positive_account_number_raises_value_error(non_positive_account_number):
+    bank = Bank()
+
+    with pytest.raises(ValueError):
+        bank.get_account(non_positive_account_number)
